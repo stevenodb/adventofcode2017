@@ -25,8 +25,9 @@ def element_at_offset_circular(arr, i, offset=1):
     return arr[(i + offset) % len(arr)]
 
 
-f = open('input')
-line = f.readline()
+line = ''
+with open('input') as f:
+    line = f.readline()
 
 print('next:', sum([int(line[i])
                     for i in range(len(line))
