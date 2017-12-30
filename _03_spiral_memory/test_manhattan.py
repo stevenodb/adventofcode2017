@@ -1,6 +1,6 @@
 from unittest import TestCase
-
 from _03_spiral_memory import spiral_memory
+
 
 class TestManhattan(TestCase):
     def test_manhattan(self):
