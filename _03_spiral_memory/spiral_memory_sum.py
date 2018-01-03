@@ -39,6 +39,7 @@ import math
 73  74  75  76  77  78  79  80  81
 """
 
+
 class Grid:
 
     def __init__(self):
@@ -72,8 +73,8 @@ class Grid:
         string = ""
         height = len(self._grid[0])
         width = len(self._grid)
-        for y in range(- math.ceil(height/2)+1, math.ceil(height/2)+1):
-            for x in range(- math.ceil(width/2)+1, math.ceil(width/2)+1):
+        for y in range(- math.ceil(height / 2), math.ceil(height / 2) + 1):
+            for x in range(- math.ceil(width / 2), math.ceil(width / 2) + 1):
                 string += '{:10d} '.format(self.get(x, -y))
             string += '\n'
         return string
@@ -116,8 +117,11 @@ def build_spiral(grid, value_function, result_function):
 if __name__ == '__main__':
     input = 368078
 
-    fn_value = lambda grid, x, y, value: grid.sum_adjacent(x, y)
-    fn_found = lambda value: value if value > input else 0
+    def fn_value(grid, x, y, value):
+        return grid.sum_adjacent(x, y)
+
+    def fn_found(value):
+        return value if value > input else 0
 
     grid = Grid()
     result = build_spiral(grid, fn_value, fn_found)
