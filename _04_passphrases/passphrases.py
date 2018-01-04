@@ -17,17 +17,16 @@ The system's full passphrase list is available as your puzzle input.
 How many passphrases are valid?
 """
 
-from itertools import permutations
+from itertools import *
+
+
+def group_size(group):
+    (_, iterable) = group
+    return len(list(iterable))
 
 
 def has_duplicates(lst):
-    seen = set()
-    for item in lst:
-        if item not in seen:
-            seen.add(item)
-        else:
-            return True
-    return False
+    return len(list(filter(lambda x: x > 1, map(group_size, groupby(sorted(lst))))))
 
 
 """
@@ -51,22 +50,15 @@ Under this new system policy, how many passphrases are valid?
 """
 
 
-def anagrams_in(words):
-
-    def anagrams_of(word):
-        return {''.join(p) for p in permutations(word)}
-
-    all_anagrams = set()
-    for i in range(len(words)):
-        selected_word = words[i]
-        other_words = set(words[:i]).union(set(words[i + 1:]))
-        anagrams_for_word = other_words.intersection(anagrams_of(selected_word))
-        all_anagrams = all_anagrams.union(anagrams_for_word)
-    return all_anagrams
-
-
 def has_anagrams(words):
-    return len(anagrams_in(words)) > 0
+    return \
+        len(
+            list(
+                filter(lambda x: x > 1,
+                       map(group_size,
+                           groupby(
+                               sorted(
+                                   [sorted(word) for word in words]))))))
 
 
 if __name__ == '__main__':
@@ -79,5 +71,4 @@ if __name__ == '__main__':
                 valid_count = valid_count + 1
 
     print('Valid passphrases: {:d}'.format(valid_count))
-
 
