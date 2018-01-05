@@ -42,8 +42,6 @@ def jumps_to_exit_part2(instructions):
 
 
 if __name__ == '__main__':
-    # jumps = [0, 3, 0, 1, -3]
-
     with open('input') as file:
         lines = file.readlines()
 
