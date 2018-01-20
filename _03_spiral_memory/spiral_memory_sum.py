@@ -26,6 +26,8 @@ Your puzzle input is still 368078.
 
 from numpy import sign
 import math
+from typing import Callable
+
 
 """
 65  64  63  62  61  60  59  58  57
@@ -42,26 +44,26 @@ import math
 
 class Grid:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._grid = {}
 
-    def _get_x(self, x):
+    def _get_x(self, x: int):
         if not x in self._grid:
             self._grid[x] = {}
         return self._grid[x]
 
-    def get(self, x, y):
+    def get(self, x: int, y: int) -> int:
         grid_x = self._get_x(x)
         if y in grid_x:
             return grid_x[y]
         else:
             return 0
 
-    def set(self, x, y, value):
+    def set(self, x: int, y: int, value: int) -> None:
         grid_x = self._get_x(x)
         grid_x[y] = value
 
-    def sum_adjacent(self, x, y):
+    def sum_adjacent(self, x: int, y: int) -> int:
         result = 0
         for dx in range(-1, 2):
             for dy in range(-1, 2):
@@ -69,7 +71,7 @@ class Grid:
                     result += self.get(x + dx, y + dy)
         return result
 
-    def __str__(self):
+    def __str__(self) -> str:
         string = ""
         height = len(self._grid[0])
         width = len(self._grid)
@@ -80,11 +82,13 @@ class Grid:
         return string
 
 
-def increment_and_reverse(n):
+def increment_and_reverse(n: int) -> int:
     return -(n + sign(n))
 
 
-def build_spiral(grid, value_function, result_function):
+def build_spiral(grid: Grid,
+                 value_function: Callable[[Grid, int, int, int], int],
+                 result_function: Callable[[int], int]) -> int:
     x = y = 0
     dx = dy = 1
     result = 0
@@ -117,10 +121,10 @@ def build_spiral(grid, value_function, result_function):
 if __name__ == '__main__':
     input = 368078
 
-    def fn_value(grid, x, y, value):
+    def fn_value(grid: Grid, x: int, y: int, value: int) -> int:
         return grid.sum_adjacent(x, y)
 
-    def fn_found(value):
+    def fn_found(value: int) -> int:
         return value if value > input else 0
 
     grid = Grid()

@@ -33,6 +33,7 @@ in your puzzle input all the way to the access port?
 Your puzzle input is 368078.
 """
 
+
 def __southeast(n):
     i = 0
     x = 1
