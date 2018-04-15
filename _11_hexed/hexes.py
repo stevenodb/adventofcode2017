@@ -33,6 +33,7 @@ se,sw,se,sw,sw is 3 steps away (s,s,sw).
 
 from typing import Dict, Callable, Tuple
 
+# https://www.redblobgames.com/grids/hexagons
 DIRECTIONS: Dict[str, Callable[[int, int, int], Tuple[int, int, int]]] = \
     {
         'n': lambda x, y, z: (x, y + 1, z - 1),
